@@ -42,25 +42,27 @@
     <h2>Escolha:</h2>
     <div id="outter-container">
       <div id="inner-container">
-        <input id="int-in" type="radio" name="forma" value="10" />
-        <label for="int-in"> Números inteiros </label>
-        <input id="dec-in" type="radio" name="forma" value="1" checked />
-        <label for="dec-in"> Números decimais </label>
+        <input id="int-in" type="radio" name="forma"/>
+        <label for="int-in"> Números acima de 1 </label>
+        <input id="dec-in" type="radio" name="forma" checked />
+        <label for="dec-in"> Números abaixo de 1 </label>
       </div>
-      <button id="enviar">Enviar</button>
     </div>
     <h2>Valores recebidos:</h2>
     <div id="result"></div>
   </body>
   <script>
     let recebimentoEl = document.querySelector("#result");
-    let enviarEl = document.querySelector("#enviar");
+    let decEl = document.querySelector("#dec-in");
+    let intEl = document.querySelector("#int-in");
 
     let socket = new WebSocket("ws://localhost:3000");
 
-    enviarEl.addEventListener("click", e => {
-        socket.send(document.querySelector('input[name="forma"]:checked').value);
-        socket.close();
+    decEl.addEventListener("change", e => {
+        socket.send("1");
+    });
+    intEl.addEventListener("change", e => {
+        socket.send("100");
     });
     
     socket.onmessage = function (evt) {
