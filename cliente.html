@@ -59,8 +59,8 @@
     let socket = new WebSocket("ws://echo.websocket.org/");
 
     enviarEl.addEventListener("click", e => {
-        mySocket.send(document.querySelector('input[name="forma"]:checked').value);
-        mySocket.close();
+        socket.send(document.querySelector('input[name="forma"]:checked').value);
+        socket.close();
     });
     
     socket.onmessage = function (evt) {
