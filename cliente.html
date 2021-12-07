@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Visão cliente</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100vh;
+      }
+      #outter-container {
+        border-radius: 10px;
+        display: flex;
+        border: black solid 4px;
+      }
+      #inner-container {
+        display: flex;
+        flex-direction: column;
+      }
+      label {
+        padding: 1em;
+      }
+      input[type="radio"] {
+        display: none;
+      }
+      input[type="radio"] + label {
+        cursor: pointer;
+        padding: 1em;
+      }
+      input[type="radio"]:checked + label {
+        background-color: rgba(252, 184, 59, 0.541);
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Escolha:</h2>
+    <div id="outter-container">
+      <div id="inner-container">
+        <input id="int-in" type="radio" name="forma" value="10" />
+        <label for="int-in"> Números inteiros </label>
+        <input id="dec-in" type="radio" name="forma" value="1" checked />
+        <label for="dec-in"> Números decimais </label>
+      </div>
+      <button id="enviar">Enviar</button>
+    </div>
+    <h2>Valores recebidos:</h2>
+    <div id="result"></div>
+  </body>
+  <script>
+    let recebimentoEl = document.querySelector("#result");
+    let enviarEl = document.querySelector("#enviar");
+
+    let socket = new WebSocket("ws://echo.websocket.org/");
+
+    enviarEl.addEventListener("click", e => {
+        mySocket.send(document.querySelector('input[name="forma"]:checked').value);
+        mySocket.close();
+    });
+    
+    socket.onmessage = function (evt) {
+      recebimentoEl.innerHTML = evt.data;
+    };
+
+    socket.onerror = function (evt) {
+      recebimentoEl.innerHTML = "ERRO";
+    };
+  </script>
+</html>
