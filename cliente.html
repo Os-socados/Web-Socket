@@ -52,25 +52,25 @@
     <div id="result"></div>
   </body>
   <script>
-    let recebimentoEl = document.querySelector("#result");
-    let decEl = document.querySelector("#dec-in");
-    let intEl = document.querySelector("#int-in");
+    let recebimentoEl = document.querySelector("#result")
+    let decEl = document.querySelector("#dec-in")
+    let intEl = document.querySelector("#int-in")
 
-    let socket = new WebSocket("ws://localhost:3000");
+    let socket = new WebSocket("ws://localhost:3000")
 
     decEl.addEventListener("change", e => {
-        socket.send("1");
-    });
+        socket.send("1")
+    })
     intEl.addEventListener("change", e => {
-        socket.send("100");
-    });
+        socket.send("100")
+    })
     
     socket.onmessage = function (evt) {
-      recebimentoEl.innerHTML = evt.data;
-    };
+      recebimentoEl.innerHTML = evt.data
+    }
 
     socket.onerror = function (evt) {
-      recebimentoEl.innerHTML = "ERRO";
-    };
+      recebimentoEl.innerHTML = "ERRO"
+    }
   </script>
 </html>
